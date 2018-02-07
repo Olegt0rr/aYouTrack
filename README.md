@@ -16,7 +16,7 @@ from youtrack import YouTrackAPI
 yt = YouTrackAPI(url=YT_SITE_URL, login=YT_LOGIN, password=YT_PASSWORD)
 ```
 
-3) Create and get output (id / link / issue object)
+3) Create issue and get new issue id or issue link or issue object
 ```python
 issue = await yt.create_issue(project='MyProject', summary='My Issue', output='issue')
 ```
