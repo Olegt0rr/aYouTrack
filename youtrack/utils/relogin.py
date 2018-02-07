@@ -1,6 +1,9 @@
 import functools
 import asyncio
+import logging
 from .exceptions import YouTrackException
+
+logger = logging.getLogger(f'YouTrack.{__name__}')
 
 
 def relogin_on_401(func):
@@ -21,6 +24,7 @@ def relogin_on_401(func):
                     await asyncio.sleep(30)
 
                 elif self._last_credentials is not None:
+                    logger.debug("Unauthorized. Let's relogin :)")
                     await self._login(*self._last_credentials)
 
                 else:

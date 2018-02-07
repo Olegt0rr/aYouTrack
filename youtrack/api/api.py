@@ -61,6 +61,9 @@ class YouTrackAPI:
             if response.status == 404:
                 raise NotFound(response, "Can't find")
 
+            if response.status == 401:
+                raise YouTrackException(response, 'Unauthorized')
+
             xml_body = await response.text()
             logger.debug(f'Response: {response}')
             return response, xml_body
@@ -121,7 +124,7 @@ class YouTrackAPI:
         response, body = await self._request(method=method, api_url=url, data=data)
 
         if response and response.status == 200:
-            issue: Issue = await get_object(body)
+            issue: Issue = await get_object(body, self)
             return issue
 
     async def update_issue(self, issue_id, summary=None, description=None, **kwargs):

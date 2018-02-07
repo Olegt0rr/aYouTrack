@@ -14,6 +14,7 @@ async def get_object(xml_data: str, yt):
         4) Set attributes to yt object
         5) Return object
 
+    :param yt: api object
     :param xml_data:
     :return:
     """
