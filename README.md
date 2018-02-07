@@ -2,9 +2,8 @@
 [![Supported python versions](https://img.shields.io/pypi/pyversions/aiogram.svg?style=flat-square)](https://pypi.python.org/pypi/aiogram)
 [![MIT License](https://img.shields.io/pypi/l/aiogram.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
-Asyncio YouTrack API client based on python 3.6+
-**aYouTrack** is aio library for [YouTrack REST API](https://www.jetbrains.com/help/youtrack/standalone/YouTrack-REST-API-Reference.html) written in Python 3.6 with [asyncio](https://docs.python.org/3/library/asyncio.html) and [aiohttp](https://github.com/aio-libs/aiohttp). 
-It helps you integrate YouTrack with your product.
+**aYouTrack** is a library for [YouTrack REST API](https://www.jetbrains.com/help/youtrack/standalone/YouTrack-REST-API-Reference.html) written in Python 3.6 with [asyncio](https://docs.python.org/3/library/asyncio.html) and [aiohttp](https://github.com/aio-libs/aiohttp). 
+It helps to integrate YouTrack with your product.
 
 ## How to use
 1) Import YouTrack
