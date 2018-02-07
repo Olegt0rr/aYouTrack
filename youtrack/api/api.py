@@ -195,6 +195,57 @@ class YouTrackAPI:
         if response and response.status == 200:
             return True
 
+    async def issue_execute(self, issue_id=None, command=None, comment=None, group=None, disable_notifications=False,
+                            run_as=None):
+        """
+        Apply Command to an Issue
+
+        :param str issue_id:
+        The ID of the issue for which the command is applied.
+
+        :param str command:
+        A command to apply to the specified issue.
+        The command can contain a string of attributes and their values.
+        This means that you can change multiple attributes with a single command.
+        For example, the following command sets the values for the custom fields
+        Type=Bug, Priority=Critical, Fix version=5.1, and adds the regression tag.
+        For more details about commands in YouTrack, refer to the
+        basic description (https://www.jetbrains.com/help/youtrack/standalone/Commands.html) and
+        Command Reference (https://www.jetbrains.com/help/youtrack/standalone/Command-Reference.html)
+
+        :param str comment:
+        A comment to add to an issue.
+
+        :param str group:
+        The name of a group. Use to set the visibility settings for a comment.
+
+        :param boolean disable_notifications:
+        If true, the command is applied without notification. The default value is false.
+
+        :param str run_as:
+        Login for a user on whose behalf the command is executed.
+        To use the runAs parameter, you must have the Update Project permission in the project for the target issue.
+        For more information about permissions, see Permissions Reference:
+        (https://www.jetbrains.com/help/youtrack/standalone/YouTrack-Permissions-Reference.html)
+
+        :return:
+        """
+        method = Methods.POST
+        url = f'/issue/{issue_id}/execute'
+        data = {
+            'command': command,
+            'comment': comment,
+            'group': group,
+            'disableNotifications': disable_notifications,
+            'runAs': run_as,
+        }
+        response, body = await self._request(method=method, api_url=url, data=data)
+
+        if response and response.status == 200:
+            return True
+        else:
+            return False
+
     @staticmethod
     async def _compose_data(params=None, files=None):
         """

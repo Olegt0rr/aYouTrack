@@ -40,6 +40,10 @@ class Issue(YouTrackObject):
         # todo issue.update(fields={"labels": issue.fields.labels})
         return await self._yt.update_issue(self, issue_id=self.id, summary=summary, description=description, **kwargs)
 
+    async def execute(self, command=None, comment=None, group=None, disable_notifications=False, run_as=None):
+        return await self._yt.issue_execute(issue_id=self.id, command=command, comment=comment, group=group,
+                                            disable_notifications=disable_notifications, run_as=run_as)
+
     async def delete(self):
         return await self._yt.delete_issue(self.id)
 
