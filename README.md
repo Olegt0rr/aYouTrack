@@ -36,6 +36,12 @@ await issue.delete()
 another_issue = await yt.get_issue('YT-123')
 ```
 
+7) Execute issue commands (for example set custom field)
+```python
+value = 'some value'
+await another_issue.execute(f'field {value}')
+```
+
 ## To do
 * Token authorization
 * Set default project

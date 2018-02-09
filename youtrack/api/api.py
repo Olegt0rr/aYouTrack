@@ -69,7 +69,7 @@ class YouTrackAPI:
             return response, xml_body
 
     async def create_issue(self, project, summary, description=None, attachments=None, permitted_group=None,
-                           output='link'):
+                           output='link', **kwargs):
         """
         Create an issue
          # todo attachments file in the "multipart/form-data" format
@@ -92,6 +92,7 @@ class YouTrackAPI:
             'description': description,
             'attachments': attachments,
             'permitted_group': permitted_group,
+            **kwargs
         }
         response, body = await self._request(method=method, api_url=url, data=data)
 
