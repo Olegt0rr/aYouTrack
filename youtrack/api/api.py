@@ -13,7 +13,7 @@ logger = logging.getLogger('YouTrack')
 
 class YouTrackAPI:
 
-    def __init__(self, url, login, password, task_factory=None):
+    def __init__(self, url, login, password):
         self.url = url.rstrip('/')
         self.base_url = self.url + "/rest"
         self.headers = {}
@@ -21,8 +21,6 @@ class YouTrackAPI:
 
         # Asyncio loop instance
         self.loop = asyncio.get_event_loop()
-        if task_factory:
-            self.loop.set_task_factory(task_factory)
 
         # aiohttp main session
         self.session = aiohttp.ClientSession(
@@ -43,15 +41,15 @@ class YouTrackAPI:
                    'Content-Type': 'application/x-www-form-urlencoded',
                    'Content-Length': str(len(payload))}
 
-        response: aiohttp.ClientResponse = await self.session.post(url=url, data=payload, headers=headers)
+        async with await self.session.post(url=url, data=payload, headers=headers) as response:
 
-        if response.status != 200:
-            raise YouTrackException(response, 'Login fails')
+            if response.status != 200:
+                raise YouTrackException(response, 'Login fails')
 
-        resp_dict = await parse_xml(await response.text())
-        self.headers = {'Cookie': resp_dict.get('set-cookie'),
-                        'Cache-Control': 'no-cache'}
-        self._last_credentials = (login, password)
+            resp_dict = await parse_xml(await response.text())
+            self.headers = {'Cookie': resp_dict.get('set-cookie'),
+                            'Cache-Control': 'no-cache'}
+            self._last_credentials = (login, password)
 
     @relogin_on_401
     async def _request(self, method, api_url, data=None):
