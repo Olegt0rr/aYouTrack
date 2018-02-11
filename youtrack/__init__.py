@@ -10,12 +10,12 @@ except ImportError as e:
     else:
         raise
 
-try:
-    import uvloop
-
-except ImportError:
-    pass
-
-else:
-    import asyncio
-    asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+# try:
+#     import uvloop
+#
+# except ImportError:
+#     pass
+#
+# else:
+#     import asyncio
+#     asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
