@@ -27,6 +27,9 @@ class YouTrackAPI:
             connector=aiohttp.TCPConnector(limit=10),
             loop=self.loop, json_serialize=json.dumps)
 
+    def __del__(self):
+        asyncio.ensure_future(self.close())
+
     async def close(self):
         await self.session.close()
 
